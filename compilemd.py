@@ -30,7 +30,7 @@ for filename in os.listdir(posts_md_dir):
 
         # Write the HTML to the new file
         with open(html_path, 'w', encoding='utf-8') as file:
-            file.write(html_content)
+            file.write(html_content + "\n<style>\n*{\n\tcolor: white;\n}\n</style>")
 
         print(f"Converted {filename} to {html_filename}")
 
