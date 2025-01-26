@@ -16,6 +16,11 @@ body, html {
   padding-bottom: 50px;
   padding-left: 80px;
 } 
+
+embed {
+  color: white;
+}
+
 /* Container to center content */
 .container {
   text-align: center; /* Center aligns h1 and .topnav */
