@@ -1,0 +1,16 @@
+<h1>Why <abbr title="Hypertext Markup Language">HTML</abbr> is a Failure</h1>
+<h2>and <abbr title="Cascading Style Sheets">CSS</abbr> is terrible</h2>
+
+<p>Ok, I realize that might be a <em>little</em> drastic. Here's what I mean. HTML has been partly superseding by CSS, and people nowadays use CSS to 'fix' their HTML. But HTML, which was ceated to provide a bridge between Humans and Machines, is meant to code for all meaningful information.</p>
+<p>For example, the HTML tag <code>&lt;small&gt;</code> should be used to display small text, if it is meaningful to the information being conveyed by the document. For example, a mouse is talking or something: <small>"hello, i am a mouse"</small> said the mouse, in a squeaky voice. If your text needs to be styled, then something is wrong with the way you are writing.</p>
+<p>Obviously, I understand that CSS has some use cases. For example, moving <code>divs</code> and background colors. But even those sometimes have meaning. In a perfect world, all pages would be unstyled, and HTML would simply have better support for moving UI elements into position.</p>
+<p>Now, I can't simply say all of this without providing a solution, so here it is. It definitely isn't perfect, but here is the general premise:</p>
+<p>Instead of predifined tags like <code>&lt;p&gt;</code> or <code>&lt;h2&gt;</code> documents would be written with a pseudo css value inside them. For example, you might have:</p>
+<code>
+    Some normal text... Now some &lt;italics underline&gt;italics and underline&lt;/i u&gt;
+    Mabye some &lt;font:cursive&gt;new fonts&lt;/cursive&gt;.
+</code><br>
+would display <br>
+Some normal text... Now some <i><u>italics and underline</u></i> Mabye some <span style="font-family: cursive;">new fonts</span>.
+<br>
+Of course, some standard would need to be applied, but this makes much more sense than a mix of styling and structure, but simply documents with data in a format readable by both humans and machines.
