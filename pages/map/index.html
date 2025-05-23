@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map with Hotspots</title>
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .pin {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: red;
+            border: 2px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* So tooltip still works */
+        }
+
+        #tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            pointer-events: none;
+            white-space: nowrap;
+            display: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="image-container" id="mapContainer">
+    <img src="img/The_Airship1.png" alt="map">
+    <div id="tooltip"></div>
+</div>
+
+<script>
+    const size = 20;
+    const hotspots = [
+        {x: 183, y: 155, width: 20, height: 20, text: "Cockpit"},
+        {x: 273, y: 179, width: 20, height: 20, text: "Warehouse"},
+        {x: 196, y: 287, width: 20, height: 20, text: "Walking the plank"},
+        {x: 315, y: 286, width: 20, height: 20, text: "Kitchen"},
+        {x: 369, y: 328, width: 20, height: 20, text: "Propellers"},
+        {x: 419, y: 285, width: 20, height: 20, text: "Hall of Portraits"},
+        {x: 525, y: 290, width: 20, height: 20, text: "Vault"},
+        {x: 397, y: 160, width: 20, height: 20, text: "Hallway"},
+        {x: 541, y: 180, width: 20, height: 20, text: "Lounge"},
+        {x: 569, y: 190, width: 20, height: 20, text: "Boardroom"},
+        {x: 593, y: 180, width: 20, height: 20, text: "Hatch Guard Room"},
+        {x: 612, y: 160, width: 20, height: 20, text: "Hatch"},
+        {x: 567, y: 311, width: 20, height: 20, text: "Engine Room"},
+        {x: 582, y: 355, width: 20, height: 20, text: "Surveillance Balcony"},
+        {x: 583, y: 378, width: 20, height: 20, text: "Balcony"},
+        {x: 621, y: 216, width: 20, height: 20, text: "Showdown"},
+        {x: 718, y: 222, width: 20, height: 20, text: "Ventilation"},
+        {x: 661, y: 274, width: 20, height: 20, text: "Records Library"},
+        {x: 747, y: 319, width: 20, height: 20, text: "Air Duct"},
+        {x: 844, y: 263, width: 20, height: 20, text: "Cargo Bay"},
+    ];
+
+    const tooltip = document.getElementById("tooltip");
+    const container = document.getElementById("mapContainer");
+
+    // Add pins for each hotspot
+    hotspots.forEach(spot => {
+        const pin = document.createElement("div");
+        pin.className = "pin";
+        pin.style.left = `${spot.x + size / 2}px`;
+        pin.style.top = `${spot.y + size / 2}px`;
+        container.appendChild(pin);
+    });
+
+    container.addEventListener("mousemove", (e) => {
+        const rect = container.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        let found = false;
+        for (const spot of hotspots) {
+            if (
+                mouseX >= spot.x && mouseX <= spot.x + spot.width &&
+                mouseY >= spot.y && mouseY <= spot.y + spot.height
+            ) {
+                tooltip.style.left = `${mouseX + 15}px`;
+                tooltip.style.top = `${mouseY + 15}px`;
+                tooltip.textContent = spot.text;
+                tooltip.style.display = "block";
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            tooltip.style.display = "none";
+        }
+    });
+
+    container.addEventListener("mouseleave", () => {
+        tooltip.style.display = "none";
+    });
+
+    container.addEventListener("click", (e) => {
+        const rect = container.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+        console.log(`{ x: ${Math.round(clickX)}, y: ${Math.round(clickY)}, width: ${size}, height: ${size}, text: "" }`);
+    });
+</script>
+</body>
+</html>
